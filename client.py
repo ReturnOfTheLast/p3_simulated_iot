@@ -23,6 +23,8 @@ try:
         camera.start_recording(connection, format='h264')
 #        camera.wait_recording(60)
 #        camera.stop_recording()
-finally:
+        while True:
+            pass
+except:
     connection.close()
     client_socket.close()
