@@ -10,8 +10,8 @@ server_socket.bind(('0.0.0.0', 8000))
 try:
     # Run a viewer with an appropriate command line. Uncomment the mplayer
     # version if you would prefer to use mplayer instead of VLC
-    cmdline = ['vlc', '--demux', 'h264', '-']
-    #cmdline = ['mplayer', '-fps', '25', '-cache', '1024', '-']
+    #cmdline = ['vlc', '--demux', 'h264', '-']
+    cmdline = ['mplayer', '-fps', '25', '-cache', '1024', '-']
     player = subprocess.Popen(cmdline, stdin=subprocess.PIPE)
     while True:
         # Repeatedly read up to 128k of data from the connection and write it
