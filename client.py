@@ -1,38 +1,26 @@
-# This is client code to receive video frames over UDP
-import cv2, imutils, socket
-import numpy as np
+import socket
 import time
-import base64
+import picamera
 
-BUFF_SIZE = 65536
-client_socket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-client_socket.setsockopt(socket.SOL_SOCKET,socket.SO_RCVBUF,BUFF_SIZE)
-host_name = socket.gethostname()
-host_ip = '192.168.1.102'#  socket.gethostbyname(host_name)
-print(host_ip)
-port = 9999
-message = b'Hello'
+# Connect a client socket to my_server:8000 (change my_server to the
+# hostname of your server)
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+client_socket.connect(('my_server', 8000))
 
-client_socket.sendto(message,(host_ip,port))
-fps,st,frames_to_count,cnt = (0,0,20,0)
-while True:
-	packet,_ = client_socket.recvfrom(BUFF_SIZE)
-	data = base64.b64decode(packet,' /')
-	npdata = np.fromstring(data,dtype=np.uint8)
-	frame = cv2.imdecode(npdata,1)
-	frame = cv2.putText(frame,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-	cv2.imshow("RECEIVING VIDEO",frame)
-	key = cv2.waitKey(1) & 0xFF
-	if key == ord('q'):
-		client_socket.close()
-		break
-	if cnt == frames_to_count:
-		try:
-			fps = round(frames_to_count/(time.time()-st))
-			st=time.time()
-			cnt=0
-		except:
-			pass
-	cnt+=1
-
-
+# Make a file-like object out of the connection
+connection = client_socket.makefile('wb')
+try:
+    with picamera.PiCamera() as camera:
+        camera.resolution = (640, 480)
+        camera.framerate = 24
+        # Start a preview and let the camera warm up for 2 seconds
+        camera.start_preview()
+        time.sleep(2)
+        # Start recording, sending the output to the connection for 60
+        # seconds, then stop
+        camera.start_recording(connection, format='h264')
+        camera.wait_recording(60)
+        camera.stop_recording()
+finally:
+    connection.close()
+    client_socket.close()
