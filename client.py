@@ -21,6 +21,7 @@ try:
         # Start recording, sending the output to the connection for 60
         # seconds, then stop
         camera.start_recording(connection, format='h264')
+        print("Started recording")
 #        camera.wait_recording(60)
 #        camera.stop_recording()
         while True:
