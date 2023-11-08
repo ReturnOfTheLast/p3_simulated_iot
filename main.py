@@ -3,6 +3,7 @@ from time import sleep
 import random
 import network
 
+"""This will act as an lifx LED-light IoT device"""
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
