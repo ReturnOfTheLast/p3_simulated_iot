@@ -4,7 +4,7 @@ import picamera
 from os import environ
 
 # Connect a client socket to my_server:8000 (change my_server to the
-# hostname of your server)
+# Hostname of your server)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 client_socket.connect((environ["SERVER_IP"], 8000))
 
@@ -19,13 +19,13 @@ try:
         camera.start_preview()
         time.sleep(2)
         # Start recording, sending the output to the connection for 60
-        # seconds, then stop
+        # Seconds, then stop
         camera.start_recording(connection, format='h264')
         print("Started recording")
         # camera.wait_recording(60)
         # camera.stop_recording()
         while True:
             pass
-except:
+finally:
     connection.close()
     client_socket.close()

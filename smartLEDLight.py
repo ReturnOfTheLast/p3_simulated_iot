@@ -1,18 +1,22 @@
 import socket
-from time import sleep
+import time
 import random
 import network
 
-"""This will act as an lifx LED-light IoT device"""
+"""This will act as an Smart LED-light IoT device"""
+
+# TODO:
+# 'Turn off / On' function
+# Send data through TCP
+# Remove data set!
+# Timestamp
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
 HOST = "10.10.0.223"
 BUFFER_SIZE = 1024
 PORT = 12345
-
-with open("names-dataset.txt", "r") as fd:
-    lines = [x.strip() for x in fd.readlines()]
+lightSwitch = ["Light: On", "Light: Off"]
 
 # Connect to WLAN (Router WIFI)
 wlan = network.WLAN(network.STA_IF)
@@ -22,14 +26,15 @@ wlan.connect(SSID, PASSWORD)
 
 while not wlan.isconnected():
     print("Waiting for connection...")
-    sleep(1)
+    time.sleep(1)
 
-# TCP Socket
+# TCP Socket (client)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
 
 while True:
-    data = random.choice(lines)
+    data = random.choice(lightSwitch)
     client_socket.send(data.encode())
     print(f"Data send: {data}")
-    sleep(2)  # Skal slettes efter Pico W testes eksternt
+    # Skal slettes efter Pico W testes eksternt
+    time.sleep(round(random.choice(0, 2), 2)) 
