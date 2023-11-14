@@ -1,22 +1,15 @@
-import socket
 import time
 import random
 import network
+import urequests
+
 
 """This will act as an Smart LED-light IoT device"""
-
-# TODO:
-# 'Turn off / On' function
-# Send data through TCP
-# Remove data set!
-# Timestamp
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
 HOST = "10.10.0.223"
-BUFFER_SIZE = 1024
 PORT = 12345
-lightSwitch = ["Light: On", "Light: Off"]
 
 # Connect to WLAN (Router WIFI)
 wlan = network.WLAN(network.STA_IF)
@@ -28,13 +21,14 @@ while not wlan.isconnected():
     print("Waiting for connection...")
     time.sleep(1)
 
-# TCP Socket (client)
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((HOST, PORT))
+i = 0
 
 while True:
-    data = random.choice(lightSwitch)
-    client_socket.send(data.encode())
-    print(f"Data send: {data}")
-    # Skal slettes efter Pico W testes eksternt
-    time.sleep(round(random.choice(0, 2), 2)) 
+    data = {"state": i}
+    i = (i + 1) % 2
+    r = urequests.post(f"http://{HOST}:{PORT}/api/v2/lightstatus", json=data)
+    print(r.status_code)
+    print(r.json())
+
+    # Delay for each packet bewteen 0 - 2 sec
+    time.sleep(round(random.random() * 2, ndigits=2))

@@ -19,3 +19,4 @@ wlan.connect(SSID, PASSWORD)
 # Send timestamp and heartbeat (BPM)
 # Setup socket (TCP)
 # Setup network
+# Make a function for how heartbeat BPM will be emulated
