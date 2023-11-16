@@ -3,18 +3,17 @@ import random
 import network
 import urequests
 
-
 """This will act as an Smart LED-light IoT device"""
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
-HOST = "10.10.0.223"
-PORT = 12345
+HOST = "10.0.0.35"
+PORT = 5000
 
 # Connect to WLAN (Router WIFI)
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.ifconfig(("10.10.0.5", "255.255.255.0", "10.10.0.1", "1.1.1.1"))
+wlan.ifconfig(("10.10.0.5", "255.0.0.0", "10.10.0.1", "1.1.1.1"))
 wlan.connect(SSID, PASSWORD)
 
 while not wlan.isconnected():
@@ -31,4 +30,4 @@ while True:
     print(r.json())
 
     # Delay for each packet bewteen 0 - 2 sec
-    time.sleep(round(random.random() * 2, ndigits=2))
+    time.sleep(round(random.random() * 2, 2))
