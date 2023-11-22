@@ -21,12 +21,9 @@ while not wlan.isconnected():
     print("Waiting for connection...")
     time.sleep(1)
 
-# https://forbes.com/health/healthy-aging/normal-heart-rate-by-age/ (heartrate:
-# sqrt((162 - 95) / 2)) = 5.79
-
 
 def generate_normal_distribution(mu, sigma):
-    # Box-Muller transform func:
+    # Box-Muller transform method:
     x1 = 1.0 - random.uniform(0, 1)
     x2 = 1.0 - random.uniform(0, 1)
     eq = math.sqrt(-2.0 * math.log(x1)) * math.cos(2 * math.pi * x2)
@@ -46,7 +43,6 @@ while True:
     r = urequests.post(f"http://{HOST}:{PORT}/api/v2/smartwatch",
                        json=data)
     print(r.status_code)
-    print(r.json())
 
     data = []
     # Delay for each packet bewteen 0 - 3 sec
