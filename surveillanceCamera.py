@@ -3,8 +3,7 @@ import time
 import picamera
 from os import environ
 
-# Connect a client socket to my_server:8000 (change my_server to the
-# Hostname of your server)
+# Connect a client socket to my_server:8000
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 client_socket.connect((environ["SERVER_IP"], 8000))
 
