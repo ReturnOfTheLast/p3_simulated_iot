@@ -9,6 +9,8 @@ PORT = 8000
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
+client_socket.connect((HOST,PORT))
+
 # Make a file-like object out of the connection
 connection = client_socket.makefile('wb')
 try:
