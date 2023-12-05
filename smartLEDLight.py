@@ -29,5 +29,5 @@ while True:
     print(r.status_code)
     print(r.json())
 
-    # Delay for each packet bewteen 0 - 2 sec
-    time.sleep(round(random.random() * 2, 2))
+    # Delay for each packet bewteen 0 - 3 min
+    time.sleep(round(random.random() * 180, 2))

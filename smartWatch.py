@@ -45,5 +45,5 @@ while True:
     print(r.status_code)
 
     data = []
-    # Delay for each packet bewteen 0 - 3 sec
-    time.sleep(round(random.random() * 3, 2))
+    # Delay for each packet bewteen 0 - 5 sec
+    time.sleep(round(random.random() * 300, 2))
