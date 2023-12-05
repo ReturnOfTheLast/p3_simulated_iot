@@ -32,8 +32,8 @@ def generate_normal_distribution(mu, sigma):
     return result
 
 
-mu = 128.5
-sigma = 5.79
+mu = 80
+sigma = 5
 
 while True:
     data_bpm = round(generate_normal_distribution(mu, sigma), 2)
