@@ -8,13 +8,13 @@ import urequests
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
-HOST = "10.0.0.35"
+HOST = "10.10.0.108"  # Insert your IP
 PORT = 5000
 
 # Connect to WLAN (Router WIFI)
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.ifconfig(("10.10.0.5", "255.0.0.0", "10.10.0.1", "1.1.1.1"))
+wlan.ifconfig(("10.10.0.6", "255.255.255.0", "10.10.0.1", "1.1.1.1"))
 wlan.connect(SSID, PASSWORD)
 
 while not wlan.isconnected():

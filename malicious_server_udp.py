@@ -1,6 +1,6 @@
 import socket
 
-HOST = "10.0.0.35"
+HOST = "10.10.0.108"
 PORT = 8000
 
 #Create UDP Server using IPv4

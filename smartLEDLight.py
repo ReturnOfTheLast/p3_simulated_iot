@@ -7,13 +7,13 @@ import urequests
 
 SSID = "threefivezero_iot"
 PASSWORD = "ALongAndComplicatedPassword"
-HOST = "10.0.0.35"
+HOST = "10.10.0.108"  # Insert your IP
 PORT = 5000
 
 # Connect to WLAN (Router WIFI)
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.ifconfig(("10.10.0.5", "255.0.0.0", "10.10.0.1", "1.1.1.1"))
+wlan.ifconfig(("10.10.0.5", "255.255.255.0", "10.10.0.1", "1.1.1.1"))
 wlan.connect(SSID, PASSWORD)
 
 while not wlan.isconnected():
@@ -27,7 +27,6 @@ while True:
     i = (i + 1) % 2
     r = urequests.post(f"http://{HOST}:{PORT}/api/v2/lightstatus", json=data)
     print(r.status_code)
-    print(r.json())
 
     # Delay for each packet bewteen 0 - 3 min
     time.sleep(round(random.random() * 180, 2))
